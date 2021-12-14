@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="kro.kr.rhya_network.aninotice">
+
+
+    <!-- 앱 권한 -->
+    <!-- ====================================================== -->
+
+    <!-- 파일 읽기/쓰기 권한 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- 인터넷 사용 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <!-- 외부 저장소 사용 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 서비스 사용 -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <!-- 부팅 관리 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- 절전모드 사용 안함 -->
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
+
+    <!-- ====================================================== -->
+
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+		android:screenOrientation="portrait"
+        android:theme="@style/AppTheme">
+        <activity android:name=".activity.StartActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
+        <!-- 화면 추가 / WebView 액티비티 -->
+        <activity android:name=".activity.AniActivity"/>
+
+
+        <!-- 서비스 파일 -->
+        <!-- ====================================================== -->
+        <service
+            android:name=".service.RealService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <service
+            android:name=".service.RestartService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <receiver android:name=".service.AlarmRecever"/>
+
+        <receiver
+            android:name=".service.RebootRecever"
+            android:enabled="true"
+            android:exported="false"
+            android:process=":remote">
+            <intent-filter>
+                <action android:name="ACTION.RESTART.PersistentService" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <!-- ====================================================== -->
+    </application>
+</manifest>
